@@ -43,7 +43,7 @@ public class InputWindows {
         send.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SucessWindows();
+                new SuccessWindows();
                 frame.setVisible(false);
             }
         });

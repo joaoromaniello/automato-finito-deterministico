@@ -3,9 +3,9 @@ package com.afd.interfaces;
 import javax.swing.*;
 import java.awt.*;
 
-public class SucessWindows {
+public class SuccessWindows {
 
-    public SucessWindows() {
+    public SuccessWindows() {
         JFrame frame = new JFrame("Sucesso");
         JPanel panel = new JPanel();
         JPanel panelMessage = new JPanel();
