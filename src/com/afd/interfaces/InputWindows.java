@@ -10,7 +10,6 @@ public class InputWindows {
     private final JButton send;
     private final JTextField textTitle;
     private final JPanel panelTitle = new JPanel();
-    private final JPanel panelText = new JPanel();
     private final JPanel panelButton = new JPanel();
     private final JPanel panel = new JPanel();
 
