@@ -12,7 +12,7 @@ public class Windows extends InputWindows {
         panel.setLayout(new GridLayout(1, 1));
         panel.add(this.getPanel());
 
-        frame.setSize(450, 175);
+        frame.setSize(450, 275);
         frame.setLocation(800, 400);
         frame.getContentPane().add(panel);
         frame.setVisible(true);
