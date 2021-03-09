@@ -1,1 +1,1 @@
-# automato-finito-deterministico
+# Autômato finito determinístico
