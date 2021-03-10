@@ -9,7 +9,7 @@ public class Main {
         String sequence = "01a";
 
         String currentState = M.getInitialState();
-        boolean isValidSymbol = false;
+        boolean isValidSymbol;
         for (int currentPosition = 0; currentPosition < sequence.length(); currentPosition++) {
             isValidSymbol = false;
             for (Rule rule : M.getRules()) {
