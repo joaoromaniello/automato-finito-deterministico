@@ -4,18 +4,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Automaton {
-    private Set<String> states;
-    private Set<String> alphabet;
-    private Set<Rule> rules;
-    private String initialState;
-    private Set<String> finalStates;
+    private final Set<String> states;
+    private final Set<String> alphabet;
+    private final Set<Rule> rules;
+    private final String initialState;
+    private final Set<String> acceptanceStates;
 
-    public Automaton(Set<String> states, Set<String> alphabet, Set<Rule> rules, String initialState, Set<String> finalStates) {
+    public Automaton(Set<String> states, Set<String> alphabet, Set<Rule> rules, String initialState, Set<String> acceptanceStates) {
         this.states = states;
         this.alphabet = alphabet;
         this.rules = rules;
         this.initialState = initialState;
-        this.finalStates = finalStates;
+        this.acceptanceStates = acceptanceStates;
     }
 
     public static Automaton buildDefaultAutomaton() {
@@ -45,14 +45,6 @@ public class Automaton {
         return new Automaton(states, alphabet, rules, initialState, finalStates);
     }
 
-    public Set<String> getStates() {
-        return states;
-    }
-
-    public Set<String> getAlphabet() {
-        return alphabet;
-    }
-
     public Set<Rule> getRules() {
         return rules;
     }
@@ -61,7 +53,7 @@ public class Automaton {
         return initialState;
     }
 
-    public Set<String> getFinalStates() {
-        return finalStates;
+    public Set<String> getAcceptanceStates() {
+        return acceptanceStates;
     }
 }
