@@ -22,4 +22,6 @@ public class Rule {
     public String getTargetState() {
         return targetState;
     }
+
+
 }
