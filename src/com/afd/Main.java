@@ -12,7 +12,7 @@ public class Main {
 
         String endState = processSequence(sequence, M.getInitialState(), M.getRules());
 
-        if (acceptableState(endState, M.getAcceptanceStates())) {
+        if (isAcceptableState(endState, M.getAcceptanceStates())) {
             System.out.println("DEU BÃO");
         } else {
             System.out.println("DEU RUIM");
@@ -43,7 +43,7 @@ public class Main {
         return applicableRule.getTargetState();
     }
 
-    private static boolean acceptableState(String state, Set<String> acceptableStates) {
+    private static boolean isAcceptableState(String state, Set<String> acceptableStates) {
         return acceptableStates.contains(state);
     }
 }
