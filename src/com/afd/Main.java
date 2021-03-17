@@ -1,49 +1,25 @@
 package com.afd;
 
 import com.afd.data.Automaton;
-import com.afd.data.Rule;
-
-import java.util.Set;
+import com.afd.repository.RuleRepository;
+import com.afd.services.AutomatonService;
+import com.afd.services.RuleService;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        RuleRepository ruleRepository = new RuleRepository();
+
+        // TODO esses bagulho vão ser chamados pelas telas de input que chama a de output
         Automaton M = Automaton.buildDefaultAutomaton();
-        String sequence = "";
+        String sequence = "1001";
 
-        String endState = processSequence(sequence, M.getInitialState(), M.getRules());
-
-        if (isAcceptableState(endState, M.getAcceptanceStates())) {
-            System.out.println("DEU BÃO");
-        } else {
-            System.out.println("DEU RUIM");
-        }
+        // TODO esses bagulho vão ser chamados pela tela de output
+        RuleService ruleService = new RuleService(ruleRepository);
+        AutomatonService automatonService = new AutomatonService(ruleService);
+        automatonService.metodoQueVaiFicarDentroDaTelaDeOutput(sequence, M);
+        System.out.println("\n\nCadeia: " + sequence + "\n\n");
+        System.out.println(ruleService.getCoveredRules(ruleRepository.coveredRules));
     }
 
-    private static String processSequence(String sequence, String initialState, Set<Rule> rules) throws Exception {
-        String currentState = initialState;
-        for (char currentSymbol : sequence.toCharArray()) {
-            Rule applicableRule = searchRule(rules, currentState, currentSymbol);
-            currentState = applyRule(applicableRule);
-        }
-        return currentState;
-    }
 
-    private static Rule searchRule(Set<Rule> rules, String currentState, char currentSymbol) throws Exception {
-        return rules.stream()
-                .filter(rule -> isRuleApplicable(rule, currentState, currentSymbol))
-                .findFirst()
-                .orElseThrow(() -> new Exception("Regra não encontrada"));
-    }
-
-    private static boolean isRuleApplicable(Rule rule, String currentState, char currentSymbol) {
-        return rule.getSourceState().equals(currentState) && rule.getSymbol() == currentSymbol;
-    }
-
-    private static String applyRule(Rule applicableRule) {
-        return applicableRule.getTargetState();
-    }
-
-    private static boolean isAcceptableState(String state, Set<String> acceptableStates) {
-        return acceptableStates.contains(state);
-    }
 }
