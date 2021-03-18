@@ -3,7 +3,6 @@ package com.afd;
 import com.afd.data.Automaton;
 import com.afd.data.Run;
 
-
 public class Main {
 
     public static void main(String[] args) throws Exception {
