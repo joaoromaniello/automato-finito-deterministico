@@ -1,4 +1,4 @@
-package com.afd.interfaces;
+package com.afd.view;
 
 
 public class MainWindows {

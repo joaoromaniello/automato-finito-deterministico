@@ -1,4 +1,4 @@
-package com.afd.interfaces;
+package com.afd.view;
 
 import javax.swing.*;
 import java.awt.*;

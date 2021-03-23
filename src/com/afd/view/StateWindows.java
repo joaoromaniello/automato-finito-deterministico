@@ -1,4 +1,4 @@
-package com.afd.interfaces;
+package com.afd.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

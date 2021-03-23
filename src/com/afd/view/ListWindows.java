@@ -1,4 +1,4 @@
-package com.afd.interfaces;
+package com.afd.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
