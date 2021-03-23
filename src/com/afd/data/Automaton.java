@@ -3,6 +3,7 @@ package com.afd.data;
 import java.util.HashSet;
 import java.util.Set;
 
+
 public class Automaton {
     private final Set<String> states;
     private final Set<String> alphabet;
@@ -16,6 +17,7 @@ public class Automaton {
         this.rules = rules;
         this.initialState = initialState;
         this.acceptanceStates = acceptanceStates;
+
     }
 
     public static Automaton buildDefaultAutomaton() {
@@ -56,4 +58,6 @@ public class Automaton {
     public Set<String> getAcceptanceStates() {
         return acceptanceStates;
     }
+
+
 }
