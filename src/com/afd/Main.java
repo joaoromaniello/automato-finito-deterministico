@@ -5,7 +5,9 @@ import com.afd.repository.RuleRepository;
 import com.afd.services.AutomatonService;
 import com.afd.services.RuleService;
 
+
 public class Main {
+
     public static void main(String[] args) throws Exception {
         RuleRepository ruleRepository = new RuleRepository();
 

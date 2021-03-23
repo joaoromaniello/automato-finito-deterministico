@@ -48,10 +48,10 @@ public class InputWindows {
         JLabel labelFinalState = new JLabel("Estado final:", SwingConstants.CENTER);
         finalState = new JTextField(40);
 
-        JLabel labelAlphabet = new JLabel("alfabeto:", SwingConstants.CENTER);
+        JLabel labelAlphabet = new JLabel("Alfabeto:", SwingConstants.CENTER);
         alphabet = new JTextField(40);
 
-        JLabel labelSetOfFunctions = new JLabel("Conjuto de funções:", SwingConstants.CENTER);
+        JLabel labelSetOfFunctions = new JLabel("Conjunto de funções:", SwingConstants.CENTER);
         setOfFunctions = new JTextField(40);
 
         send = new JButton("Enviar");
