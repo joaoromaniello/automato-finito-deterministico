@@ -20,6 +20,4 @@ public class Main {
         System.out.println("\n\nCadeia: " + sequence + "\n\n");
         System.out.println(ruleService.getCoveredRules(ruleRepository.coveredRules));
     }
-
-
 }
