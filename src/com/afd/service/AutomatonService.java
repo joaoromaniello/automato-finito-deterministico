@@ -1,9 +1,9 @@
-package com.afd.services;
+package com.afd.service;
 
 import com.afd.data.Automaton;
 import com.afd.data.Rule;
 
-import java.util.Set;
+import java.util.List;
 
 public class AutomatonService {
 
@@ -23,7 +23,7 @@ public class AutomatonService {
         }
     }
 
-    private String processSequence(String sequence, String initialState, Set<Rule> rules) throws Exception {
+    private String processSequence(String sequence, String initialState, List<Rule> rules) throws Exception {
         String currentState = initialState;
         for (char currentSymbol : sequence.toCharArray()) {
             Rule applicableRule = ruleService.getApplicableRule(rules, currentState, currentSymbol);
@@ -33,7 +33,7 @@ public class AutomatonService {
         return currentState;
     }
 
-    private boolean isAcceptableState(String state, Set<String> acceptableStates) {
+    private boolean isAcceptableState(String state, List<String> acceptableStates) {
         return acceptableStates.contains(state);
     }
 }

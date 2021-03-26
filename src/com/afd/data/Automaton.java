@@ -1,17 +1,16 @@
 package com.afd.data;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 
 public class Automaton {
-    private final Set<String> states;
-    private final Set<Character> alphabet;
-    private final Set<Rule> rules;
+    private final List<String> states;
+    private final List<String> alphabet;
+    private final List<Rule> rules;
     private final String initialState;
-    private final Set<String> finalStates;
+    private final List<String> finalStates;
 
-    public Automaton(Set<String> states, Set<Character> alphabet, Set<Rule> rules, String initialState, Set<String> finalStates) {
+    public Automaton(List<String> states, List<String> alphabet, List<Rule> rules, String initialState, List<String> finalStates) {
         this.states = states;
         this.alphabet = alphabet;
         this.rules = rules;
@@ -19,7 +18,7 @@ public class Automaton {
         this.finalStates = finalStates;
     }
 
-    public Set<Rule> getRules() {
+    public List<Rule> getRules() {
         return rules;
     }
 
@@ -27,9 +26,7 @@ public class Automaton {
         return initialState;
     }
 
-    public Set<String> getFinalStates() {
+    public List<String> getFinalStates() {
         return finalStates;
     }
-
-
 }

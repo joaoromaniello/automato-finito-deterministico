@@ -1,16 +1,19 @@
 package com.afd.view;
 
+import com.afd.data.Automaton;
+import com.afd.exception.InvalidFileException;
+import com.afd.service.InputFileService;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.Scanner;
 
 import static javax.swing.SwingConstants.CENTER;
 
 public class InitialView extends JFrame implements ActionListener {
 
+    InputFileService inputFileService = new InputFileService();
     JLabel titleLabel = new JLabel("Autômato Finito Determinístico");
     JButton openFileButton = new JButton("Arquivo...");
 
@@ -44,16 +47,12 @@ public class InitialView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == openFileButton) {
-            File file;
-            JFileChooser fileChooser = new JFileChooser();
+            try {
+                Automaton M = inputFileService.translateAutomaton();
 
-            if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                file = fileChooser.getSelectedFile();
-                System.out.println(file);
-
+            } catch (InvalidFileException e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
-
-
         }
     }
 }
