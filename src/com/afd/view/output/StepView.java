@@ -1,12 +1,9 @@
-package com.afd.view;
+package com.afd.view.output;
 
 import javax.swing.*;
 import java.awt.*;
-import com.afd.Main;
 
-public class ResultInterface {
-
-
+public class StepView {
 
     public static int offset = 40;
     public static int offset2 = 100;
@@ -22,7 +19,7 @@ public class ResultInterface {
 
 
 
-    ResultInterface(){
+    public StepView(){
           this.frame.add(palavra);
           this.frame.setVisible(true);
           this.frame.setResizable(false);

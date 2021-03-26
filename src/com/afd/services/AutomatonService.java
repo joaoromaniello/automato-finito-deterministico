@@ -16,7 +16,7 @@ public class AutomatonService {
     public void metodoQueVaiFicarDentroDaTelaDeOutput(String sequence, Automaton M) throws Exception {
         //TODO this.automatonService.processSequence......
         String endState = processSequence(sequence, M.getInitialState(), M.getRules());
-        if (isAcceptableState(endState, M.getAcceptanceStates())) {
+        if (isAcceptableState(endState, M.getFinalStates())) {
             System.out.println("JOptionalPane de sucesso falando que pertence");
         } else {
             System.out.println("JOptionalPane de falha falando que nao pertence");

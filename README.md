@@ -1,1 +1,0 @@
-# Autômato finito determinístico
