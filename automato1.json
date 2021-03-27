@@ -29,5 +29,5 @@
     }
   ],
   "estadoInicial": "q0",
-  "estadosFinais": ["q2"]
+  "estadosFinais": []
 }
