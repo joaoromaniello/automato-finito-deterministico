@@ -56,11 +56,11 @@ public class AutomatonService {
     }
 
     private void validateFinalStates(List<String> states, List<String> finalStates) throws Exception {
+        if (finalStates.isEmpty())
+            throw new Exception("Deve haver pelo menos um estado final");
         for (String finalState : finalStates) {
             if (!states.contains(finalState))
                 throw new Exception("Estados finais devem pertencer ao conjunto de estados!");
-            if (finalState.isEmpty())
-                throw new Exception("Deve haver pelo menos um estado final");
         }
     }
 
