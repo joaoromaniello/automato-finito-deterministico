@@ -59,6 +59,8 @@ public class AutomatonService {
         for (String finalState : finalStates) {
             if (!states.contains(finalState))
                 throw new Exception("Estados finais devem pertencer ao conjunto de estados!");
+            if (states.isEmpty())
+                throw new Exception("Deve haver pelo menos um estado final");
         }
     }
 
