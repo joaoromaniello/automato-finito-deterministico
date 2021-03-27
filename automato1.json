@@ -1,6 +1,6 @@
 {
   "estados": ["q0", "q1", "q2"],
-  "alfabeto": ["0", "1"],
+  "alfabeto": "01",
   "regras": [
     {
       "estadoPartida": "q0",

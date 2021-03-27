@@ -2,7 +2,6 @@ package com.afd.service;
 
 import com.afd.data.Automaton;
 import com.afd.data.Rule;
-import com.afd.exception.InvalidFileException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,14 +18,14 @@ public class InputFileService {
     JSONArray jsonArray;
     JSONObject jsonField;
 
-    public Automaton translateAutomaton() throws InvalidFileException {
+    public Automaton translateAutomaton() throws Exception {
         JFileChooser fileChooser = new JFileChooser();
 
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             try {
                 return parseFile(fileChooser.getSelectedFile().getAbsolutePath());
             } catch (IOException | ParseException | NullPointerException e) {
-                throw new InvalidFileException();
+                throw new Exception("Arquivo inválido!");
             }
         }
         return null;
@@ -36,7 +35,7 @@ public class InputFileService {
         jsonField = (JSONObject) new JSONParser().parse(new FileReader(absolutePath));
 
         List<String> states = parseArrayField("estados");
-        List<String> alphabet = parseArrayField("alfabeto");
+        String alphabet = parseAlphabet();
         List<Rule> rules = parseRules();
         String initialState = parseInitialState();
         List<String> finalStates = parseArrayField("estadosFinais");
@@ -52,6 +51,10 @@ public class InputFileService {
             array.add((String) o);
         }
         return array;
+    }
+
+    private String parseAlphabet() {
+        return (String) jsonField.get("alfabeto");
     }
 
     private List<Rule> parseRules() {

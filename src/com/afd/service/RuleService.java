@@ -19,6 +19,12 @@ public class RuleService {
                 .orElseThrow(() -> new Exception("Regra não encontrada"));
     }
 
+    public int countApplicableRules(List<Rule> rules, String currentState, char currentSymbol) {
+        return (int) rules.stream()
+                .filter(rule -> isRuleApplicable(rule, currentState, currentSymbol))
+                .count();
+    }
+
     private boolean isRuleApplicable(Rule rule, String currentState, char currentSymbol) {
         return rule.getSourceState().equals(currentState) && rule.getSymbol() == currentSymbol;
     }
