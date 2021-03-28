@@ -3,6 +3,7 @@ package com.afd.services;
 import com.afd.data.Automaton;
 import com.afd.data.Rule;
 
+import javax.swing.*;
 import java.util.Set;
 
 public class AutomatonService {
@@ -17,9 +18,9 @@ public class AutomatonService {
         //TODO this.automatonService.processSequence......
         String endState = processSequence(sequence, M.getInitialState(), M.getRules());
         if (isAcceptableState(endState, M.getAcceptanceStates())) {
-            System.out.println("JOptionalPane de sucesso falando que pertence");
+            JOptionPane.showMessageDialog(null, "Pertence");
         } else {
-            System.out.println("JOptionalPane de falha falando que nao pertence");
+            JOptionPane.showMessageDialog(null, "Não pertence");
         }
     }
 
