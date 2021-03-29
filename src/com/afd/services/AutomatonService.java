@@ -5,7 +5,7 @@ import com.afd.data.Rule;
 import com.afd.service.RuleService;
 
 import javax.swing.*;
-import java.util.Set;
+import java.util.List;
 
 public class AutomatonService {
 
@@ -18,14 +18,14 @@ public class AutomatonService {
     public void metodoQueVaiFicarDentroDaTelaDeOutput(String sequence, Automaton M) throws Exception {
         //TODO this.automatonService.processSequence......
         String endState = processSequence(sequence, M.getInitialState(), M.getRules());
-        if (isAcceptableState(endState, M.getAcceptanceStates())) {
+        if (isAcceptableState(endState, M.getFinalStates())) {
             JOptionPane.showMessageDialog(null, "Pertence");
         } else {
             JOptionPane.showMessageDialog(null, "Não pertence");
         }
     }
 
-    private String processSequence(String sequence, String initialState, Set<Rule> rules) throws Exception {
+    private String processSequence(String sequence, String initialState, List<Rule> rules) throws Exception {
         String currentState = initialState;
         for (char currentSymbol : sequence.toCharArray()) {
             Rule applicableRule = ruleService.getApplicableRule(rules, currentState, currentSymbol);
@@ -35,7 +35,7 @@ public class AutomatonService {
         return currentState;
     }
 
-    private boolean isAcceptableState(String state, Set<String> acceptableStates) {
+    private boolean isAcceptableState(String state, List<String> acceptableStates) {
         return acceptableStates.contains(state);
     }
 }

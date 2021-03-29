@@ -1,6 +1,5 @@
 package com.afd.data;
 
-import java.nio.charset.Charset;
 import java.util.List;
 
 

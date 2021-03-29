@@ -3,6 +3,7 @@ package com.afd.view.output;
 import com.afd.data.Automaton;
 import com.afd.data.Rule;
 import com.afd.repository.RuleRepository;
+import com.afd.service.RuleService;
 import com.afd.services.AutomatonService;
 
 import javax.swing.*;
@@ -136,6 +137,10 @@ public class StepView {
     }
 
     private void result() {
+
+        RuleService ruleService = new RuleService(ruleRepository);
+        AutomatonService automatonService = new AutomatonService(ruleService);
+
         try {
             automatonService.metodoQueVaiFicarDentroDaTelaDeOutput(sequence, automaton);
         } catch (Exception e) {
