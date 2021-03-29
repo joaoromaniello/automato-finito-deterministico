@@ -2,6 +2,7 @@ package com.afd.services;
 
 import com.afd.data.Automaton;
 import com.afd.data.Rule;
+import com.afd.service.RuleService;
 
 import javax.swing.*;
 import java.util.Set;

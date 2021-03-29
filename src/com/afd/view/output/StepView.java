@@ -4,7 +4,6 @@ import com.afd.data.Automaton;
 import com.afd.data.Rule;
 import com.afd.repository.RuleRepository;
 import com.afd.services.AutomatonService;
-import com.afd.services.RuleService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResultInterface {
+public class StepView {
 
     public static int offset = 40;
     public static int offset2 = 100;
@@ -28,16 +27,18 @@ public class ResultInterface {
     private JLabel text = new JLabel();
 
 
-    Automaton M = Automaton.buildDefaultAutomaton();
-    RuleRepository ruleRepository = new RuleRepository();
-    RuleService ruleService = new RuleService(ruleRepository);
+    private Automaton automaton;
+    private RuleRepository ruleRepository;
 
     String sequence = null;
     List<String> sequenceList = new ArrayList<>();
     List<Rule> result;
     int aux = -1;
 
-    ResultInterface() {
+    public StepView(RuleRepository ruleRepository, Automaton automaton) {
+
+        this.ruleRepository = ruleRepository;
+        this.automaton = automaton;
 
         frame.add(palavra);
         frame.setVisible(true);
@@ -135,9 +136,8 @@ public class ResultInterface {
     }
 
     private void result() {
-        AutomatonService automatonService = new AutomatonService(ruleService);
         try {
-            automatonService.metodoQueVaiFicarDentroDaTelaDeOutput(sequence, M);
+            automatonService.metodoQueVaiFicarDentroDaTelaDeOutput(sequence, automaton);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
         }
