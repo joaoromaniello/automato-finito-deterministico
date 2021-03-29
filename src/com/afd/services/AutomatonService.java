@@ -19,9 +19,9 @@ public class AutomatonService {
         //TODO this.automatonService.processSequence......
         String endState = processSequence(sequence, M.getInitialState(), M.getRules());
         if (isAcceptableState(endState, M.getFinalStates())) {
-            JOptionPane.showMessageDialog(null, "Pertence");
+            JOptionPane.showMessageDialog(null, "Pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Não pertence");
+            JOptionPane.showMessageDialog(null, "Não pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
