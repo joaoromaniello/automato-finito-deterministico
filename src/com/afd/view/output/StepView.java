@@ -89,11 +89,7 @@ public class StepView {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                sequence = null;
-                sequenceList = new ArrayList<>();
-                result = null;
-                ruleRepository.coveredRules = new ArrayList<>();
-
+                clean();
                 sequence = palavra.getText();
 
                 aux = 0;
@@ -219,6 +215,24 @@ public class StepView {
         }
 
         return result.toString();
+    }
+
+
+    private void clean(){
+
+        if(aux != -1){
+            JPanel panel = new JPanel();
+            panel.setBounds(1, 1, 345, 120);
+            panel.setBackground(new Color(255, 255, 255));
+            painel.remove(0);
+            painel.add(panel);
+            painel.repaint();
+        }
+        sequence = null;
+        sequenceList = new ArrayList<>();
+        result = null;
+        ruleRepository.coveredRules = new ArrayList<>();
+        aux = -1;
     }
 
 }
