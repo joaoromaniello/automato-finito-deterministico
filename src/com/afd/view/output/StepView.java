@@ -21,10 +21,10 @@ public class StepView {
 
     private JFrame frame = new JFrame("RESULTADO");
     private JPanel painel = new JPanel();
-    private JButton button1 = new JButton("<<<");
-    private JButton button2 = new JButton("FINALIZAR");
-    private JButton button3 = new JButton(">>>");
-    private JButton button4 = new JButton("VALIDAR");
+    private JButton before = new JButton("<<<");
+    private JButton next = new JButton(">>>");
+    private JButton finish = new JButton("FINALIZAR");
+    private JButton validate = new JButton("VALIDAR");
     private JLabel text = new JLabel();
 
 
@@ -56,14 +56,14 @@ public class StepView {
         painel.setBounds(17, 50, 350, 150);
         painel.setBackground(new Color(255, 255, 255));
 
-        button1.setBorder(BorderFactory.createEtchedBorder());
-        button2.setBorder(BorderFactory.createEtchedBorder());
-        button3.setBorder(BorderFactory.createEtchedBorder());
+        before.setBorder(BorderFactory.createEtchedBorder());
+        finish.setBorder(BorderFactory.createEtchedBorder());
+        next.setBorder(BorderFactory.createEtchedBorder());
 
-        frame.add(button1);
-        frame.add(button2);
-        frame.add(button3);
-        frame.add(button4);
+        frame.add(before);
+        frame.add(finish);
+        frame.add(next);
+        frame.add(validate);
 
         frame.add(text);
         text.setBounds(80, 10, 400, 30);
@@ -71,25 +71,26 @@ public class StepView {
 
         painel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
 
-        button1.setBounds(-10 + offset, 70 + offset2, 60, 20);
-        button2.setBounds(120 + offset, 110 + offset2, 80, 40);
-        button3.setBounds(260 + offset, 70 + offset2, 60, 20);
-        button4.setBounds(250, 15, 90, 20);
+        before.setBounds(-10 + offset, 70 + offset2, 60, 20);
+        finish.setBounds(120 + offset, 110 + offset2, 80, 40);
+        next.setBounds(260 + offset, 70 + offset2, 60, 20);
+        validate.setBounds(250, 15, 90, 20);
 
         frame.add(painel);
 
-        this.buttonResult();
-        this.buttonbutton1();
-        this.buttonbutton3();
+        this.buttonRefactor();
+        this.buttonBefore();
+        this.buttoNext();
     }
 
 
-    public void buttonResult() {
-        button4.addActionListener(new ActionListener() {
+    public void buttonRefactor() {
+        validate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 clean();
+
                 sequence = palavra.getText();
 
                 aux = 0;
@@ -104,8 +105,8 @@ public class StepView {
         });
     }
 
-    public void buttonbutton1() {
-        button1.addActionListener(new ActionListener() {
+    public void buttonBefore() {
+        before.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(aux != 0 && aux != -1){
@@ -120,8 +121,8 @@ public class StepView {
         });
     }
 
-    public void buttonbutton3() {
-        button3.addActionListener(new ActionListener() {
+    public void buttoNext() {
+        next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(aux != result.size() && aux != -1){
@@ -188,7 +189,6 @@ public class StepView {
         panel.add(ruleLabel);
         panel.add(nextState);
 
-        System.out.println("passou aqui");
         panel.setBounds(1, 1, 345, 120);
         panel.setBackground(new Color(255, 255, 255));
 
@@ -213,7 +213,6 @@ public class StepView {
                 result.append("[").append(sequenceList.get(i)).append("]");
             }
         }
-
         return result.toString();
     }
 
