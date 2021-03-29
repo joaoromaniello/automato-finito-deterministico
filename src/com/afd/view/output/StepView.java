@@ -88,6 +88,10 @@ public class StepView {
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                sequence = null;
+                sequenceList = new ArrayList<>();
+
                 sequence = palavra.getText();
 
                 aux = 0;
