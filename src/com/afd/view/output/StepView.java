@@ -91,6 +91,8 @@ public class StepView {
 
                 sequence = null;
                 sequenceList = new ArrayList<>();
+                result = null;
+                ruleRepository.coveredRules = new ArrayList<>();
 
                 sequence = palavra.getText();
 
