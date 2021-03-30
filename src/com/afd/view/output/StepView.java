@@ -8,25 +8,18 @@ import com.afd.service.RuleService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StepView {
+public class StepView extends JFrame{
 
-    public static int offset = 40;
-    public static int offset2 = 100;
-    private JTextField palavra = new JTextField(10);
+    private final JTextField textField;
 
-    private JFrame frame = new JFrame("RESULTADO");
-    private JPanel painel = new JPanel();
-    private JButton before = new JButton("<<<");
-    private JButton next = new JButton(">>>");
-    private JButton validate = new JButton("FINALIZAR");
-    private JButton toView = new JButton("ENVIAR");
-    private JLabel text = new JLabel();
-
+    private final JPanel panel = new JPanel();
+    private final JButton beforeButton = new JButton("<<<");
+    private final JButton nextButton = new JButton(">>>");
+    private final JButton finishButton = new JButton("FINALIZAR");
+    private final JButton sendButton = new JButton("ENVIAR");
 
     private Automaton automaton;
     private RuleRepository ruleRepository;
@@ -42,118 +35,98 @@ public class StepView {
         this.ruleRepository = ruleRepository;
         this.automaton = automaton;
 
-        frame.add(palavra);
-        frame.setVisible(true);
-        frame.setResizable(false);
-        frame.setSize(400, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-        text.setText("PALAVRA: ");
+        setVisible(true);
+        setResizable(false);
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
 
-        palavra = new JTextField();
-        frame.add(palavra);
-        palavra.setBounds(145, 15, 100, 20);
+        JLabel text = new JLabel("CADEIA:");
+        text.setBounds(20, 10, 55, 30);
+        add(text);
 
-        painel.setBounds(17, 50, 350, 150);
-        painel.setBackground(new Color(255, 255, 255));
+        textField = new JTextField();
+        textField.setBounds(78, 15, 205, 20);
+        add(textField);
 
-        before.setBorder(BorderFactory.createEtchedBorder());
-        validate.setBorder(BorderFactory.createEtchedBorder());
-        next.setBorder(BorderFactory.createEtchedBorder());
+        sendButton.setBounds(290, 15, 90, 20);
+        add(sendButton);
 
-        frame.add(before);
-        frame.add(validate);
-        frame.add(next);
-        frame.add(toView);
+        panel.setBounds(20, 50, 360, 150);
+        panel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
+        panel.setBackground(new Color(255, 255, 255));
+        add(panel);
 
-        frame.add(text);
-        text.setBounds(80, 10, 400, 30);
-        frame.add(text);
+        beforeButton.setBorder(BorderFactory.createEtchedBorder());
+        beforeButton.setBounds(20, 220, 60, 20);
+        add(beforeButton);
 
-        painel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
+        finishButton.setBorder(BorderFactory.createEtchedBorder());
+        finishButton.setBounds(160, 210, 80, 40);
+        add(finishButton);
 
-        before.setBounds(-10 + offset, 120 + offset2, 60, 20);
-        validate.setBounds(120 + offset, 110 + offset2, 80, 40);
-        next.setBounds(260 + offset, 120 + offset2, 60, 20);
-        toView.setBounds(250, 15, 90, 20);
+        nextButton.setBorder(BorderFactory.createEtchedBorder());
+        nextButton.setBounds(320, 220, 60, 20);
+        add(nextButton);
 
-        frame.add(painel);
+        enableOutputButtons(false);
 
-        this.buttonToView();
-        this.buttonBefore();
-        this.buttonNext();
-        this.buttonValidate();
+        this.sendButtonAction();
+        this.beforeButtonAction();
+        this.nextButtonAction();
+        this.finishButtonAction();
     }
 
 
-    public void buttonToView() {
-        toView.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+    public void sendButtonAction() {
+        sendButton.addActionListener(e -> {
+            enableOutputButtons(true);
+            clean();
 
-                clean();
+            sequence = textField.getText();
+            aux = 0;
 
-                sequence = palavra.getText();
-                aux = 0;
+            sequenceMethod(sequence);
+            result();
 
-                sequenceMethod(sequence);
-                result();
-
-                System.out.println(result.get(aux).toString(aux));
-
-                painel.add(resultPanel(result.get(aux)));
-                painel.repaint();
-            }
+            panel.add(resultPanel(result.get(aux)));
+            panel.repaint();
         });
     }
 
-    public void buttonBefore() {
-        before.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(aux != 0 && aux != -1){
-                    aux = aux - 1;
-                    System.out.println(result.get(aux).toString(aux));
-
-                    painel.remove(0);
-                    painel.add(resultPanel(result.get(aux)));
-                }
-                painel.repaint();
+    public void beforeButtonAction() {
+        beforeButton.addActionListener(e -> {
+            if(aux != 0 && aux != -1){
+                aux = aux - 1;
+                panel.remove(0);
+                panel.add(resultPanel(result.get(aux)));
             }
+            panel.repaint();
         });
     }
 
-    public void buttonNext() {
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(aux != (result.size() - 1) && aux != -1){
-                    aux = aux + 1;
-                    System.out.println(result.get(aux).toString(aux));
-
-                    System.out.println("AUX: " + aux);
-
-                    painel.remove(0);
-                    painel.add(resultPanel(result.get(aux)));
-                }
-                painel.repaint();
+    public void nextButtonAction() {
+        nextButton.addActionListener(e -> {
+            if(aux != (result.size() - 1) && aux != -1){
+                aux = aux + 1;
+                panel.remove(0);
+                panel.add(resultPanel(result.get(aux)));
             }
+            panel.repaint();
         });
     }
 
-    public void buttonValidate() {
-        validate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(validateResult == 1){
-                    JOptionPane.showMessageDialog(null, "Pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
-                }else if (validateResult == -1) {
-                    JOptionPane.showMessageDialog(null, "Não pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
-                }else {
-                    JOptionPane.showMessageDialog(null, "Error", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                clean();
+    public void finishButtonAction() {
+        finishButton.addActionListener(e -> {
+            if(validateResult == 1){
+                JOptionPane.showMessageDialog(null, "Pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }else if (validateResult == -1) {
+                JOptionPane.showMessageDialog(null, "Não pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }else {
+                JOptionPane.showMessageDialog(null, "Error", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
+            clean();
+            enableOutputButtons(false);
         });
     }
 
@@ -238,8 +211,9 @@ public class StepView {
     private void clean(){
 
         if(aux != -1){
-            painel.remove(0);
-            painel.repaint();
+            panel.remove(0);
+            panel.repaint();
+            textField.setText("");
         }
 
         validateResult = 0;
@@ -248,6 +222,12 @@ public class StepView {
         result = null;
         ruleRepository.coveredRules = new ArrayList<>();
         aux = -1;
+    }
+
+    private void enableOutputButtons(boolean flag) {
+        beforeButton.setEnabled(flag);
+        finishButton.setEnabled(flag);
+        nextButton.setEnabled(flag);
     }
 
 }
