@@ -145,7 +145,6 @@ public class StepView {
         validate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clean();
                 if(validateResult == 1){
                     JOptionPane.showMessageDialog(null, "Pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
                 }else if (validateResult == -1) {
@@ -153,6 +152,7 @@ public class StepView {
                 }else {
                     JOptionPane.showMessageDialog(null, "Error", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
+                clean();
             }
         });
     }
