@@ -14,8 +14,7 @@ public class AutomatonService {
         this.ruleService = new RuleService(ruleRepository);
     }
 
-    public int metodoQueVaiFicarDentroDaTelaDeOutput(String sequence, Automaton M) throws Exception {
-        //TODO this.automatonService.processSequence......
+    public int belongsToLanguage(String sequence, Automaton M) throws Exception {
         String endState = processSequence(sequence, M.getInitialState(), M.getRules());
         if (isAcceptableState(endState, M.getFinalStates())) {
             return 1;

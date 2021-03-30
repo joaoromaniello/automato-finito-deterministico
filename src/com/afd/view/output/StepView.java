@@ -135,7 +135,7 @@ public class StepView extends JFrame{
 
     private void result() {
         try {
-            validateResult = automatonService.metodoQueVaiFicarDentroDaTelaDeOutput(sequence, automaton);
+            validateResult = automatonService.belongsToLanguage(sequence, automaton);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
         }
@@ -146,7 +146,7 @@ public class StepView extends JFrame{
 
         JPanel panel = new JPanel();
 
-//        String teste =
+//        String teste = ruleService.getStepOfSequence()
 
         JLabel sequence = new JLabel();
         sequence.setText("Palavra: " + sequencePosition());
