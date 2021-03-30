@@ -81,7 +81,7 @@ public class StepView {
 
         this.buttonToView();
         this.buttonBefore();
-        this.buttoNext();
+        this.buttonNext();
         this.buttonValidate();
     }
 
@@ -123,7 +123,7 @@ public class StepView {
         });
     }
 
-    public void buttoNext() {
+    public void buttonNext() {
         next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
