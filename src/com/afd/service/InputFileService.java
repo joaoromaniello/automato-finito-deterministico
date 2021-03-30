@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +20,9 @@ public class InputFileService {
     JSONObject jsonField;
 
     public Automaton translateAutomaton() throws Exception {
+        File workingDirectory = new File(System.getProperty("user.dir"));
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(workingDirectory);
 
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             try {
