@@ -2,6 +2,7 @@ package com.afd.service;
 
 import com.afd.data.Automaton;
 import com.afd.data.Rule;
+import com.afd.repository.RuleRepository;
 
 import java.util.List;
 
@@ -9,8 +10,8 @@ public class AutomatonService {
 
     RuleService ruleService;
 
-    public AutomatonService(RuleService ruleService) {
-        this.ruleService = ruleService;
+    public AutomatonService(RuleRepository ruleRepository) {
+        this.ruleService = new RuleService(ruleRepository);
     }
 
     public int metodoQueVaiFicarDentroDaTelaDeOutput(String sequence, Automaton M) throws Exception {

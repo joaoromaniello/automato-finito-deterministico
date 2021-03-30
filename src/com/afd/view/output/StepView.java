@@ -21,8 +21,10 @@ public class StepView extends JFrame{
     private final JButton finishButton = new JButton("FINALIZAR");
     private final JButton sendButton = new JButton("ENVIAR");
 
-    private Automaton automaton;
-    private RuleRepository ruleRepository;
+    private final Automaton automaton;
+    private final RuleRepository ruleRepository;
+    private final RuleService ruleService;
+    private final AutomatonService automatonService;
 
     String sequence = null;
     List<String> sequenceList = new ArrayList<>();
@@ -31,7 +33,8 @@ public class StepView extends JFrame{
     int validateResult = 0;
 
     public StepView(RuleRepository ruleRepository, Automaton automaton) {
-
+        this.ruleService = new RuleService(ruleRepository);
+        this.automatonService = new AutomatonService(ruleRepository);
         this.ruleRepository = ruleRepository;
         this.automaton = automaton;
 
@@ -131,10 +134,6 @@ public class StepView extends JFrame{
     }
 
     private void result() {
-
-        RuleService ruleService = new RuleService(ruleRepository);
-        AutomatonService automatonService = new AutomatonService(ruleService);
-
         try {
             validateResult = automatonService.metodoQueVaiFicarDentroDaTelaDeOutput(sequence, automaton);
         } catch (Exception e) {
@@ -147,38 +146,23 @@ public class StepView extends JFrame{
 
         JPanel panel = new JPanel();
 
-        JLabel header = new JLabel();
-        JLabel stateActual = new JLabel();
-        JLabel symbolActual = new JLabel();
-        JLabel ruleLabel = new JLabel();
-        JLabel nextState = new JLabel();
+//        String teste =
+
         JLabel sequence = new JLabel();
-
-
         sequence.setText("Palavra: " + sequencePosition());
         sequence.setBounds(10, 0, 345, 20);
 
-        header.setText("------- Passo " + aux + " -------");
-        header.setBounds(0, 20, 345, 20);
-
+        JLabel stateActual = new JLabel();
         stateActual.setText("Estado atual: " + rule.getSourceState());
-        stateActual.setBounds(0, 40, 345, 20);
+        stateActual.setBounds(10, 40, 345, 20);
 
-        symbolActual.setText("Símbolo atual: " + rule.getSymbol());
-        symbolActual.setBounds(0, 60, 345, 20);
-
+        JLabel ruleLabel = new JLabel();
         ruleLabel.setText("Regra: {" + rule.getSourceState() + ", " + rule.getSymbol() + " ," + rule.getTargetState() + "}");
-        ruleLabel.setBounds(0, 80, 345, 20);
-
-        nextState.setText("Próximo estado: " + rule.getTargetState());
-        nextState.setBounds(0, 100, 345, 20);
+        ruleLabel.setBounds(10, 80, 345, 20);
 
         panel.add(sequence);
-        panel.add(header);
         panel.add(stateActual);
-        panel.add(symbolActual);
         panel.add(ruleLabel);
-        panel.add(nextState);
 
         panel.setBounds(1, 1, 345, 120);
         panel.setBackground(new Color(255, 255, 255));

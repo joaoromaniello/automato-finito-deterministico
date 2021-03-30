@@ -22,10 +22,10 @@ public class InitialView extends JFrame implements ActionListener {
     JButton aboutButton = new JButton("Sobre...");
 
     RuleRepository ruleRepository;
-    RuleService ruleService = new RuleService(ruleRepository);
-    AutomatonService automatonService = new AutomatonService(ruleService);
+    AutomatonService automatonService;
 
     public InitialView(RuleRepository ruleRepository){
+        this.automatonService = new AutomatonService(ruleRepository);
         this.ruleRepository = ruleRepository;
         setupFrame();
         setupTitle();
