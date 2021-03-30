@@ -148,36 +148,53 @@ public class StepView extends JFrame{
 
         JPanel panel = new JPanel();
 
-        JLabel sequence = new JLabel();
-        JLabel stateActual = new JLabel();
-        sequence.setBounds(10, 0, 345, 20);
-        stateActual.setBounds(10, 40, 345, 20);
+        JLabel sequenceLabel = new JLabel();
+        JLabel currentStateLabel = new JLabel();
+        JLabel ruleLabel = new JLabel();
+        JLabel acceptableStatesLabel = new JLabel();
+
+        sequenceLabel.setFont(new Font(null, Font.PLAIN, 25));
+        sequenceLabel.setBounds(10, 10, 345, 25);
+        sequenceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        currentStateLabel.setBounds(10, 50, 345, 20);
+        acceptableStatesLabel.setBounds(10, 70, 345, 20);
 
         if (rules.isEmpty()) {
-            sequence.setText("Palavra: Cadeia vazia!");
-            stateActual.setText("Estado inicial: " + automaton.getInitialState());
+            sequenceLabel.setText("Cadeia vazia!");
+            currentStateLabel.setText("Estado inicial: " + automaton.getInitialState());
+            currentStateLabel.setForeground(setColorByAcceptance(automaton.getInitialState()));
         } else {
             Rule rule = rules.get(aux);
-            sequence.setText("Palavra: " + getSequenceWithBrackets());
+            sequenceLabel.setText(getSequenceWithBrackets());
 
-            stateActual.setText("Estado atual: " + rule.getSourceState());
+            currentStateLabel.setForeground(setColorByAcceptance(rule.getTargetState()));
+            currentStateLabel.setText("Estado atual: " + rule.getTargetState());
 
-            JLabel ruleLabel = new JLabel();
-            ruleLabel.setBounds(10, 80, 345, 20);
-            ruleLabel.setText("Regra: {"
+            ruleLabel.setBounds(140, 110, 100, 20);
+            ruleLabel.setText("{"
                     + rule.getSourceState() + ", "
                     + rule.getSymbol() + " ,"
                     + rule.getTargetState() + "}");
             panel.add(ruleLabel);
         }
+        acceptableStatesLabel.setText("Estados de aceitação: " + automaton.getFinalStates());
 
-        panel.add(sequence);
-        panel.add(stateActual);
+        panel.add(sequenceLabel);
+        panel.add(currentStateLabel);
+        panel.add(acceptableStatesLabel);
 
-        panel.setBounds(1, 1, 345, 120);
+        panel.setBounds(1, 1, 345, 145);
         panel.setBackground(new Color(255, 255, 255));
 
         return panel;
+    }
+
+    private Color setColorByAcceptance(String state) {
+        if (automaton.getFinalStates().contains(state))
+            return new Color(0,100,0);
+        else
+            return new Color(100,0,0);
     }
 
     private String getSequenceWithBrackets(){
@@ -191,7 +208,6 @@ public class StepView extends JFrame{
         if(aux != -1){
             panel.remove(0);
             panel.repaint();
-            textField.setText("");
         }
 
         validateResult = 0;
