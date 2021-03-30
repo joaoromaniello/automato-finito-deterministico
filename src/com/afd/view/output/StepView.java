@@ -23,8 +23,8 @@ public class StepView {
     private JPanel painel = new JPanel();
     private JButton before = new JButton("<<<");
     private JButton next = new JButton(">>>");
-    private JButton finish = new JButton("FINALIZAR");
-    private JButton validate = new JButton("VALIDAR");
+    private JButton validate = new JButton("ENVIAR");
+    private JButton toView = new JButton("VISUALIZAR");
     private JLabel text = new JLabel();
 
 
@@ -35,6 +35,7 @@ public class StepView {
     List<String> sequenceList = new ArrayList<>();
     List<Rule> result;
     int aux = -1;
+    int validateResult = 0;
 
     public StepView(RuleRepository ruleRepository, Automaton automaton) {
 
@@ -57,13 +58,13 @@ public class StepView {
         painel.setBackground(new Color(255, 255, 255));
 
         before.setBorder(BorderFactory.createEtchedBorder());
-        finish.setBorder(BorderFactory.createEtchedBorder());
+        validate.setBorder(BorderFactory.createEtchedBorder());
         next.setBorder(BorderFactory.createEtchedBorder());
 
         frame.add(before);
-        frame.add(finish);
-        frame.add(next);
         frame.add(validate);
+        frame.add(next);
+        frame.add(toView);
 
         frame.add(text);
         text.setBounds(80, 10, 400, 30);
@@ -71,29 +72,30 @@ public class StepView {
 
         painel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
 
-        before.setBounds(-10 + offset, 70 + offset2, 60, 20);
-        finish.setBounds(120 + offset, 110 + offset2, 80, 40);
-        next.setBounds(260 + offset, 70 + offset2, 60, 20);
-        validate.setBounds(250, 15, 90, 20);
+        before.setBounds(-10 + offset, 120 + offset2, 60, 20);
+        validate.setBounds(120 + offset, 110 + offset2, 80, 40);
+        next.setBounds(260 + offset, 120 + offset2, 60, 20);
+        toView.setBounds(250, 15, 90, 20);
 
         frame.add(painel);
 
-        this.buttonRefactor();
+        this.buttonToView();
         this.buttonBefore();
         this.buttoNext();
+        this.buttonValidate();
     }
 
 
-    public void buttonRefactor() {
-        validate.addActionListener(new ActionListener() {
+    public void buttonToView() {
+        toView.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 clean();
 
                 sequence = palavra.getText();
-
                 aux = 0;
+
                 sequenceMethod(sequence);
                 result();
 
@@ -125,7 +127,7 @@ public class StepView {
         next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(aux != result.size() && aux != -1){
+                if(aux != (result.size() - 1) && aux != -1){
                     aux = aux + 1;
                     System.out.println(result.get(aux).toString(aux));
 
@@ -139,13 +141,29 @@ public class StepView {
         });
     }
 
+    public void buttonValidate() {
+        validate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clean();
+                if(validateResult == 1){
+                    JOptionPane.showMessageDialog(null, "Pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }else if (validateResult == -1) {
+                    JOptionPane.showMessageDialog(null, "Não pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }else {
+                    JOptionPane.showMessageDialog(null, "Error", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
     private void result() {
 
         RuleService ruleService = new RuleService(ruleRepository);
         AutomatonService automatonService = new AutomatonService(ruleService);
 
         try {
-            automatonService.metodoQueVaiFicarDentroDaTelaDeOutput(sequence, automaton);
+            validateResult = automatonService.metodoQueVaiFicarDentroDaTelaDeOutput(sequence, automaton);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
         }
@@ -220,13 +238,11 @@ public class StepView {
     private void clean(){
 
         if(aux != -1){
-            JPanel panel = new JPanel();
-            panel.setBounds(1, 1, 345, 120);
-            panel.setBackground(new Color(255, 255, 255));
             painel.remove(0);
-            painel.add(panel);
             painel.repaint();
         }
+
+        validateResult = 0;
         sequence = null;
         sequenceList = new ArrayList<>();
         result = null;

@@ -15,13 +15,15 @@ public class AutomatonService {
         this.ruleService = ruleService;
     }
 
-    public void metodoQueVaiFicarDentroDaTelaDeOutput(String sequence, Automaton M) throws Exception {
+    public int metodoQueVaiFicarDentroDaTelaDeOutput(String sequence, Automaton M) throws Exception {
         //TODO this.automatonService.processSequence......
         String endState = processSequence(sequence, M.getInitialState(), M.getRules());
         if (isAcceptableState(endState, M.getFinalStates())) {
-            JOptionPane.showMessageDialog(null, "Pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
+            return 1;
         } else {
-            JOptionPane.showMessageDialog(null, "Não pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Não pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
+            return -1;
         }
     }
 
