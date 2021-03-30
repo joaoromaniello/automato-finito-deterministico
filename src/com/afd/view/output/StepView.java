@@ -23,8 +23,8 @@ public class StepView {
     private JPanel painel = new JPanel();
     private JButton before = new JButton("<<<");
     private JButton next = new JButton(">>>");
-    private JButton validate = new JButton("ENVIAR");
-    private JButton toView = new JButton("VISUALIZAR");
+    private JButton validate = new JButton("VISUALIZAR");
+    private JButton toView = new JButton("ENVIAR");
     private JLabel text = new JLabel();
 
 
