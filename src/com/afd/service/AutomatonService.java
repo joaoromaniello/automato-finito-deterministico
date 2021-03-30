@@ -13,13 +13,13 @@ public class AutomatonService {
         this.ruleService = ruleService;
     }
 
-    public void metodoQueVaiFicarDentroDaTelaDeOutput(String sequence, Automaton M) throws Exception {
+    public int metodoQueVaiFicarDentroDaTelaDeOutput(String sequence, Automaton M) throws Exception {
         //TODO this.automatonService.processSequence......
         String endState = processSequence(sequence, M.getInitialState(), M.getRules());
         if (isAcceptableState(endState, M.getFinalStates())) {
-            System.out.println("JOptionalPane de sucesso falando que pertence");
+            return 1;
         } else {
-            System.out.println("JOptionalPane de falha falando que nao pertence");
+            return -1;
         }
     }
 

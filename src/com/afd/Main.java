@@ -6,15 +6,10 @@ import com.afd.view.input.InitialView;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         RuleRepository ruleRepository = new RuleRepository();
         new InitialView(ruleRepository);
 
-//        RuleService ruleService = new RuleService(ruleRepository);
-//        AutomatonService automatonService = new AutomatonService(ruleService);
-//        automatonService.metodoQueVaiFicarDentroDaTelaDeOutput(sequence, M);
-//        System.out.println("\n\nCadeia: " + sequence + "\n\n");
-//        System.out.println(ruleService.getCoveredRules(ruleRepository.coveredRules));
     }
 }
