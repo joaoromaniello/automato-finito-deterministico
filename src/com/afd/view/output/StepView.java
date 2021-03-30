@@ -153,7 +153,7 @@ public class StepView extends JFrame{
         JLabel ruleLabel = new JLabel();
         JLabel acceptableStatesLabel = new JLabel();
 
-        sequenceLabel.setBounds(10, 10, 320, 25);
+        sequenceLabel.setBounds(10, 10, 345, 25);
         sequenceLabel.setBorder(BorderFactory.createLineBorder(Color.white));
 
         currentStateLabel.setBounds(10, 50, 345, 20);
@@ -170,7 +170,7 @@ public class StepView extends JFrame{
             String sequenceWithBrackets = getSequenceWithBrackets();
             sequenceLabel.setFont(new Font(null, Font.PLAIN, 25));
             sequenceLabel.setText(sequenceWithBrackets);
-            sequenceLabel.setCaretPosition(aux);
+            sequenceLabel.setCaretPosition(aux+3);
 
             currentStateLabel.setForeground(setColorByAcceptance(rule.getTargetState()));
             currentStateLabel.setText("Estado atual: " + rule.getTargetState());
