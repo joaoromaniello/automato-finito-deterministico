@@ -148,25 +148,29 @@ public class StepView extends JFrame{
 
         JPanel panel = new JPanel();
 
-        JLabel sequenceLabel = new JLabel();
+        JTextField sequenceLabel = new JTextField();
         JLabel currentStateLabel = new JLabel();
         JLabel ruleLabel = new JLabel();
         JLabel acceptableStatesLabel = new JLabel();
 
-        sequenceLabel.setFont(new Font(null, Font.PLAIN, 25));
-        sequenceLabel.setBounds(10, 10, 345, 25);
-        sequenceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        sequenceLabel.setBounds(10, 10, 320, 25);
+        sequenceLabel.setBorder(BorderFactory.createLineBorder(Color.white));
 
         currentStateLabel.setBounds(10, 50, 345, 20);
         acceptableStatesLabel.setBounds(10, 70, 345, 20);
 
         if (rules.isEmpty()) {
-            sequenceLabel.setText("Cadeia vazia!");
+            sequenceLabel.setText("Cadeia vazia");
+            sequenceLabel.setFont(new Font(null, Font.PLAIN, 15));
             currentStateLabel.setText("Estado inicial: " + automaton.getInitialState());
             currentStateLabel.setForeground(setColorByAcceptance(automaton.getInitialState()));
         } else {
             Rule rule = rules.get(aux);
-            sequenceLabel.setText(getSequenceWithBrackets());
+
+            String sequenceWithBrackets = getSequenceWithBrackets();
+            sequenceLabel.setFont(new Font(null, Font.PLAIN, 25));
+            sequenceLabel.setText(sequenceWithBrackets);
+            sequenceLabel.setCaretPosition(aux);
 
             currentStateLabel.setForeground(setColorByAcceptance(rule.getTargetState()));
             currentStateLabel.setText("Estado atual: " + rule.getTargetState());
