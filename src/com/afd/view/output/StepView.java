@@ -192,9 +192,9 @@ public class StepView extends JFrame{
 
     private Color setColorByAcceptance(String state) {
         if (automaton.getFinalStates().contains(state))
-            return new Color(0,100,0);
+            return new Color(0,200,0);
         else
-            return new Color(100,0,0);
+            return new Color(200,0,0);
     }
 
     private String getSequenceWithBrackets(){
