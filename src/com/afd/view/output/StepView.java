@@ -22,7 +22,6 @@ public class StepView extends JFrame{
     private final JButton sendButton = new JButton("ENVIAR");
 
     private final Automaton automaton;
-    private final RuleRepository ruleRepository;
     private final RuleService ruleService;
     private final AutomatonService automatonService;
 
@@ -35,7 +34,6 @@ public class StepView extends JFrame{
     public StepView(RuleRepository ruleRepository, Automaton automaton) {
         this.ruleService = new RuleService(ruleRepository);
         this.automatonService = new AutomatonService(ruleRepository);
-        this.ruleRepository = ruleRepository;
         this.automaton = automaton;
 
         setVisible(true);
@@ -80,7 +78,6 @@ public class StepView extends JFrame{
         this.finishButtonAction();
     }
 
-
     public void sendButtonAction() {
         sendButton.addActionListener(e -> {
             enableOutputButtons(true);
@@ -89,12 +86,20 @@ public class StepView extends JFrame{
             sequence = textField.getText();
             aux = 0;
 
-            sequenceMethod(sequence);
             result();
 
             panel.add(resultPanel(result.get(aux)));
             panel.repaint();
         });
+    }
+
+    private void result() {
+        try {
+            validateResult = automatonService.belongsToLanguage(sequence, automaton);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        result = ruleService.getCoveredRules();
     }
 
     public void beforeButtonAction() {
@@ -133,20 +138,9 @@ public class StepView extends JFrame{
         });
     }
 
-    private void result() {
-        try {
-            validateResult = automatonService.belongsToLanguage(sequence, automaton);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error");
-        }
-        result = ruleRepository.coveredRules;
-    }
-
     private JPanel resultPanel(Rule rule) {
 
         JPanel panel = new JPanel();
-
-//        String teste = ruleService.getStepOfSequence()
 
         JLabel sequence = new JLabel();
         sequence.setText("Palavra: " + sequencePosition());
@@ -171,26 +165,9 @@ public class StepView extends JFrame{
 
     }
 
-    private void sequenceMethod(String sequence) {
-        for (int i = 0; i < sequence.length(); i++) {
-            sequenceList.add(sequence.substring(i,i+1));
-        }
-    }
-
     private String sequencePosition(){
-
-        StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < sequence.length(); i++){
-            if(i != aux) {
-                result.append(sequenceList.get(i));
-            }else{
-                result.append("[").append(sequenceList.get(i)).append("]");
-            }
-        }
-        return result.toString();
+        return sequence.substring(0, aux) + "[" + sequence.charAt(aux) + "]" + sequence.substring(aux+1);
     }
-
 
     private void clean(){
 
@@ -204,7 +181,7 @@ public class StepView extends JFrame{
         sequence = null;
         sequenceList = new ArrayList<>();
         result = null;
-        ruleRepository.coveredRules = new ArrayList<>();
+        ruleService.cleanCoveredRules();
         aux = -1;
     }
 

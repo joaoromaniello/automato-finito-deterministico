@@ -3,6 +3,7 @@ package com.afd.service;
 import com.afd.data.Rule;
 import com.afd.repository.RuleRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RuleService {
@@ -19,14 +20,14 @@ public class RuleService {
                 .orElseThrow(() -> new Exception("Regra não encontrada"));
     }
 
+    private boolean isRuleApplicable(Rule rule, String currentState, char currentSymbol) {
+        return rule.getSourceState().equals(currentState) && rule.getSymbol() == currentSymbol;
+    }
+
     public int countApplicableRules(List<Rule> rules, String currentState, char currentSymbol) {
         return (int) rules.stream()
                 .filter(rule -> isRuleApplicable(rule, currentState, currentSymbol))
                 .count();
-    }
-
-    private boolean isRuleApplicable(Rule rule, String currentState, char currentSymbol) {
-        return rule.getSourceState().equals(currentState) && rule.getSymbol() == currentSymbol;
     }
 
     public void addCoveredRule(Rule applicableRule) {
@@ -37,11 +38,12 @@ public class RuleService {
         return applicableRule.getTargetState();
     }
 
-    public String getCoveredRules(List<Rule> coveredRules) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < coveredRules.size(); i++) {
-            result.append(coveredRules.get(i).toString(i));
-        }
-        return result.toString();
+
+    public List<Rule> getCoveredRules() {
+        return ruleRepository.coveredRules;
+    }
+
+    public void cleanCoveredRules() {
+        ruleRepository.coveredRules = new ArrayList<>();
     }
 }
