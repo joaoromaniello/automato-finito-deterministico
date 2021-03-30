@@ -4,7 +4,6 @@ import com.afd.data.Automaton;
 import com.afd.repository.RuleRepository;
 import com.afd.service.AutomatonService;
 import com.afd.service.InputFileService;
-import com.afd.service.RuleService;
 import com.afd.view.output.StepView;
 
 import javax.swing.*;
@@ -74,16 +73,18 @@ public class InitialView extends JFrame implements ActionListener {
         } else if (event.getSource() == aboutButton) {
             JOptionPane.showMessageDialog(this, "\n\nO programa tem a finalidade de simular o " +
                             "funcionamento de um Automato Finito Deterministico de forma generica.\nPara tal, deve-se " +
-                            "inserir a quintupla que o define em um arquivo json que contenha os campos representados\n" +
-                            "dessa forma:\n\n" +
-                            "  -\"estados\": [\"q0\", ..., \"qn\"]\n" +
-                            "  -\"alfabeto\": \"01...\"\n" +
-                            "  -\"estadoInicial\": \"qx\"\n" +
-                            "  -\"estadosFinais\": [\"qx\", \"qy\"]\n" +
-                            "  -\"regras\": [\n" +
-                            "    {\"estadoPartida\":\"qx\", \"simbolo\":\"1\", \"estadoDestomp\":\"q1\"},\n" +
-                            "    ...,\n" +
-                            "    {\"estadoPartida\":\"qy\", \"simbolo\":\"0\", \"estadoDestomp\":\"q0\"}\n]\n\n" +
+                            "inserir a quintupla que o define em um arquivo json que contenha os campos como no exemplo:\n\n" +
+                            "{\n" +
+                            "   \"estados\": [\"q0\", ..., \"qn\"],\n" +
+                            "   \"alfabeto\": \"01...\",\n" +
+                            "   \"estadoInicial\": \"qx\",\n" +
+                            "   \"estadosFinais\": [\"qx\", \"qy\"],\n" +
+                            "   \"regras\": [\n" +
+                            "       {\"estadoPartida\":\"qx\", \"simbolo\":\"1\", \"estadoDestomp\":\"q1\"},\n" +
+                            "       ...,\n" +
+                            "       {\"estadoPartida\":\"qy\", \"simbolo\":\"0\", \"estadoDestomp\":\"q0\"}\n" +
+                            "   ]\n" +
+                            "}\n\n" +
                             "Posteriormente, basta adicionar as cadeias que deseja testar, tendo a possibilidade de" +
                             " checar os passos\nque o automato seguiu e tambem checar se ela pertence ou nao a linguagem " +
                             "representada por ele.\n\n",

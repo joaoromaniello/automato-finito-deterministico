@@ -78,6 +78,12 @@ public class StepView extends JFrame{
         this.finishButtonAction();
     }
 
+    private void enableOutputButtons(boolean flag) {
+        beforeButton.setEnabled(flag);
+        finishButton.setEnabled(flag);
+        nextButton.setEnabled(flag);
+    }
+
     public void sendButtonAction() {
         sendButton.addActionListener(e -> {
             enableOutputButtons(true);
@@ -88,7 +94,7 @@ public class StepView extends JFrame{
 
             result();
 
-            panel.add(resultPanel(result.get(aux)));
+            panel.add(resultPanel(result));
             panel.repaint();
         });
     }
@@ -107,7 +113,7 @@ public class StepView extends JFrame{
             if(aux != 0 && aux != -1){
                 aux = aux - 1;
                 panel.remove(0);
-                panel.add(resultPanel(result.get(aux)));
+                panel.add(resultPanel(result));
             }
             panel.repaint();
         });
@@ -118,7 +124,7 @@ public class StepView extends JFrame{
             if(aux != (result.size() - 1) && aux != -1){
                 aux = aux + 1;
                 panel.remove(0);
-                panel.add(resultPanel(result.get(aux)));
+                panel.add(resultPanel(result));
             }
             panel.repaint();
         });
@@ -138,35 +144,46 @@ public class StepView extends JFrame{
         });
     }
 
-    private JPanel resultPanel(Rule rule) {
+    private JPanel resultPanel(List<Rule> rules) {
 
         JPanel panel = new JPanel();
 
         JLabel sequence = new JLabel();
-        sequence.setText("Palavra: " + sequencePosition());
-        sequence.setBounds(10, 0, 345, 20);
-
         JLabel stateActual = new JLabel();
-        stateActual.setText("Estado atual: " + rule.getSourceState());
+        sequence.setBounds(10, 0, 345, 20);
         stateActual.setBounds(10, 40, 345, 20);
 
-        JLabel ruleLabel = new JLabel();
-        ruleLabel.setText("Regra: {" + rule.getSourceState() + ", " + rule.getSymbol() + " ," + rule.getTargetState() + "}");
-        ruleLabel.setBounds(10, 80, 345, 20);
+        if (rules.isEmpty()) {
+            sequence.setText("Palavra: Cadeia vazia!");
+            stateActual.setText("Estado inicial: " + automaton.getInitialState());
+        } else {
+            Rule rule = rules.get(aux);
+            sequence.setText("Palavra: " + getSequenceWithBrackets());
+
+            stateActual.setText("Estado atual: " + rule.getSourceState());
+
+            JLabel ruleLabel = new JLabel();
+            ruleLabel.setBounds(10, 80, 345, 20);
+            ruleLabel.setText("Regra: {"
+                    + rule.getSourceState() + ", "
+                    + rule.getSymbol() + " ,"
+                    + rule.getTargetState() + "}");
+            panel.add(ruleLabel);
+        }
 
         panel.add(sequence);
         panel.add(stateActual);
-        panel.add(ruleLabel);
 
         panel.setBounds(1, 1, 345, 120);
         panel.setBackground(new Color(255, 255, 255));
 
         return panel;
-
     }
 
-    private String sequencePosition(){
-        return sequence.substring(0, aux) + "[" + sequence.charAt(aux) + "]" + sequence.substring(aux+1);
+    private String getSequenceWithBrackets(){
+        return sequence.substring(0, aux) +
+                "[" + sequence.charAt(aux) + "]"
+                + sequence.substring(aux+1);
     }
 
     private void clean(){
@@ -184,11 +201,4 @@ public class StepView extends JFrame{
         ruleService.cleanCoveredRules();
         aux = -1;
     }
-
-    private void enableOutputButtons(boolean flag) {
-        beforeButton.setEnabled(flag);
-        finishButton.setEnabled(flag);
-        nextButton.setEnabled(flag);
-    }
-
 }
