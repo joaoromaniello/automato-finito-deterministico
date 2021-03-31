@@ -33,7 +33,7 @@ public class AutomatonService {
         return acceptableStates.contains(state);
     }
 
-    public void validadeAutomaton(Automaton automaton) throws Exception {
+    public void validateAutomaton(Automaton automaton) throws Exception {
         List<String> states = automaton.getStates();
         List<String> finalStates = automaton.getFinalStates();
         String initialState = automaton.getInitialState();

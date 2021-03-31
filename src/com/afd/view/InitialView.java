@@ -63,7 +63,7 @@ public class InitialView extends JFrame implements ActionListener {
         if (event.getSource() == openFileButton) {
             try {
                 Automaton automaton = inputFileService.translateAutomaton();
-                automatonService.validadeAutomaton(automaton);
+                automatonService.validateAutomaton(automaton);
                 new StepView(ruleRepository, automaton);
                 dispose();
             } catch (Exception e) {
