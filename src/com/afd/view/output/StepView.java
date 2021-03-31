@@ -8,7 +8,6 @@ import com.afd.service.RuleService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StepView extends JFrame{
@@ -25,11 +24,10 @@ public class StepView extends JFrame{
     private final RuleService ruleService;
     private final AutomatonService automatonService;
 
-    String sequence = null;
-    List<String> sequenceList = new ArrayList<>();
-    List<Rule> result;
-    int aux = -1;
-    int validateResult = 0;
+    String sequence;
+    List<Rule> coveredRules;
+    int sequenceIndex = -1;
+    boolean validSequenceFlag;
 
     public StepView(RuleRepository ruleRepository, Automaton automaton) {
         this.ruleService = new RuleService(ruleRepository);
@@ -90,30 +88,30 @@ public class StepView extends JFrame{
             clean();
 
             sequence = textField.getText();
-            aux = 0;
+            sequenceIndex = 0;
 
-            result();
+            processSequence();
 
-            panel.add(resultPanel(result));
+            panel.add(resultPanel(coveredRules));
             panel.repaint();
         });
     }
 
-    private void result() {
+    private void processSequence() {
         try {
-            validateResult = automatonService.belongsToLanguage(sequence, automaton);
+            validSequenceFlag = automatonService.belongsToLanguage(sequence, automaton);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        result = ruleService.getCoveredRules();
+        coveredRules = ruleService.getCoveredRules();
     }
 
     public void beforeButtonAction() {
         beforeButton.addActionListener(e -> {
-            if(aux != 0 && aux != -1){
-                aux = aux - 1;
+            if(sequenceIndex != 0 && sequenceIndex != -1){
+                sequenceIndex = sequenceIndex - 1;
                 panel.remove(0);
-                panel.add(resultPanel(result));
+                panel.add(resultPanel(coveredRules));
             }
             panel.repaint();
         });
@@ -121,10 +119,10 @@ public class StepView extends JFrame{
 
     public void nextButtonAction() {
         nextButton.addActionListener(e -> {
-            if(aux != (result.size() - 1) && aux != -1){
-                aux = aux + 1;
+            if(sequenceIndex != (coveredRules.size() - 1) && sequenceIndex != -1){
+                sequenceIndex = sequenceIndex + 1;
                 panel.remove(0);
-                panel.add(resultPanel(result));
+                panel.add(resultPanel(coveredRules));
             }
             panel.repaint();
         });
@@ -132,12 +130,14 @@ public class StepView extends JFrame{
 
     public void finishButtonAction() {
         finishButton.addActionListener(e -> {
-            if(validateResult == 1){
-                JOptionPane.showMessageDialog(null, "Pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
-            }else if (validateResult == -1) {
-                JOptionPane.showMessageDialog(null, "Não pertence", "Info", JOptionPane.INFORMATION_MESSAGE);
-            }else {
-                JOptionPane.showMessageDialog(null, "Error", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (validSequenceFlag){
+                JOptionPane.showMessageDialog(null,
+                        "Cadeia pertence à linguagem representada pelo automato!", "Pertence :D",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Cadeia não pertence à linguagem representada pelo automato!", "Não pertence :(",
+                        JOptionPane.WARNING_MESSAGE);
             }
             clean();
             enableOutputButtons(false);
@@ -165,12 +165,12 @@ public class StepView extends JFrame{
             currentStateLabel.setText("Estado inicial: " + automaton.getInitialState());
             currentStateLabel.setForeground(setColorByAcceptance(automaton.getInitialState()));
         } else {
-            Rule rule = rules.get(aux);
+            Rule rule = rules.get(sequenceIndex);
 
             String sequenceWithBrackets = getSequenceWithBrackets();
             sequenceLabel.setFont(new Font(null, Font.PLAIN, 25));
             sequenceLabel.setText(sequenceWithBrackets);
-            sequenceLabel.setCaretPosition(aux+3);
+            sequenceLabel.setCaretPosition(sequenceIndex +3);
 
             currentStateLabel.setForeground(setColorByAcceptance(rule.getTargetState()));
             currentStateLabel.setText("Estado atual: " + rule.getTargetState());
@@ -202,23 +202,20 @@ public class StepView extends JFrame{
     }
 
     private String getSequenceWithBrackets(){
-        return sequence.substring(0, aux) +
-                "[" + sequence.charAt(aux) + "]"
-                + sequence.substring(aux+1);
+        return sequence.substring(0, sequenceIndex) +
+                "[" + sequence.charAt(sequenceIndex) + "]"
+                + sequence.substring(sequenceIndex +1);
     }
 
     private void clean(){
 
-        if(aux != -1){
+        if(sequenceIndex != -1){
             panel.remove(0);
             panel.repaint();
         }
 
-        validateResult = 0;
-        sequence = null;
-        sequenceList = new ArrayList<>();
-        result = null;
+        coveredRules = null;
         ruleService.cleanCoveredRules();
-        aux = -1;
+        sequenceIndex = -1;
     }
 }

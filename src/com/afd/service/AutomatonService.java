@@ -14,13 +14,9 @@ public class AutomatonService {
         this.ruleService = new RuleService(ruleRepository);
     }
 
-    public int belongsToLanguage(String sequence, Automaton M) throws Exception {
+    public boolean belongsToLanguage(String sequence, Automaton M) throws Exception {
         String endState = processSequence(sequence, M.getInitialState(), M.getRules());
-        if (isAcceptableState(endState, M.getFinalStates())) {
-            return 1;
-        } else {
-            return -1;
-        }
+        return isAcceptableState(endState, M.getFinalStates());
     }
 
     private String processSequence(String sequence, String initialState, List<Rule> rules) throws Exception {
