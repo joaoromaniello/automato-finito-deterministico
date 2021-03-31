@@ -1,10 +1,9 @@
-package com.afd.view.input;
+package com.afd.view;
 
 import com.afd.data.Automaton;
 import com.afd.repository.RuleRepository;
 import com.afd.service.AutomatonService;
 import com.afd.service.InputFileService;
-import com.afd.view.output.StepView;
 
 import javax.swing.*;
 import java.awt.*;

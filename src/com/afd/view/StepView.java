@@ -1,4 +1,4 @@
-package com.afd.view.output;
+package com.afd.view;
 
 import com.afd.data.Automaton;
 import com.afd.data.Rule;

@@ -2,7 +2,7 @@ package com.afd;
 
 
 import com.afd.repository.RuleRepository;
-import com.afd.view.input.InitialView;
+import com.afd.view.InitialView;
 
 public class Main {
 
