@@ -1,10 +1,10 @@
-package com.afd.services;
+package com.afd.service;
 
 import com.afd.data.Rule;
 import com.afd.repository.RuleRepository;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class RuleService {
     RuleRepository ruleRepository;
@@ -13,7 +13,7 @@ public class RuleService {
         this.ruleRepository = ruleRepository;
     }
 
-    public Rule getApplicableRule(Set<Rule> rules, String currentState, char currentSymbol) throws Exception {
+    public Rule getApplicableRule(List<Rule> rules, String currentState, char currentSymbol) throws Exception {
         return rules.stream()
                 .filter(rule -> isRuleApplicable(rule, currentState, currentSymbol))
                 .findFirst()
@@ -24,6 +24,12 @@ public class RuleService {
         return rule.getSourceState().equals(currentState) && rule.getSymbol() == currentSymbol;
     }
 
+    public int countApplicableRules(List<Rule> rules, String currentState, char currentSymbol) {
+        return (int) rules.stream()
+                .filter(rule -> isRuleApplicable(rule, currentState, currentSymbol))
+                .count();
+    }
+
     public void addCoveredRule(Rule applicableRule) {
         ruleRepository.coveredRules.add(applicableRule);
     }
@@ -32,11 +38,12 @@ public class RuleService {
         return applicableRule.getTargetState();
     }
 
-    public String getCoveredRules(List<Rule> coveredRules) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < coveredRules.size(); i++) {
-            result.append(coveredRules.get(i).toString(i));
-        }
-        return result.toString();
+
+    public List<Rule> getCoveredRules() {
+        return ruleRepository.coveredRules;
+    }
+
+    public void cleanCoveredRules() {
+        ruleRepository.coveredRules = new ArrayList<>();
     }
 }

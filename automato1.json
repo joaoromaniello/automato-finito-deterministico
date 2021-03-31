@@ -1,0 +1,33 @@
+{
+  "estados": ["q0", "q1", "q2"],
+  "alfabeto": "01",
+  "regras": [
+    {
+      "estadoPartida": "q0",
+      "simbolo": "0",
+      "estadoDestino": "q1"
+    }, {
+      "estadoPartida": "q0",
+      "simbolo": "1",
+      "estadoDestino": "q0"
+    }, {
+      "estadoPartida": "q1",
+      "simbolo": "0",
+      "estadoDestino": "q1"
+    }, {
+      "estadoPartida": "q1",
+      "simbolo": "1",
+      "estadoDestino": "q2"
+    }, {
+      "estadoPartida": "q2",
+      "simbolo": "0",
+      "estadoDestino": "q2"
+    }, {
+      "estadoPartida": "q2",
+      "simbolo": "1",
+      "estadoDestino": "q2"
+    }
+  ],
+  "estadoInicial": "q0",
+  "estadosFinais": ["q2"]
+}
