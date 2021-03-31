@@ -83,17 +83,21 @@ public class StepView extends JFrame{
     }
 
     public void sendButtonAction() {
-        sendButton.addActionListener(e -> {
-            enableOutputButtons(true);
-            clean();
+        sendButton.addActionListener(event -> {
+            try {
+                clean();
+                sequence = textField.getText();
+                automatonService.validateSequence(automaton.getAlphabet(), sequence);
 
-            sequence = textField.getText();
-            sequenceIndex = 0;
+                processSequence();
 
-            processSequence();
-
-            panel.add(resultPanel(coveredRules));
-            panel.repaint();
+                enableOutputButtons(true);
+                sequenceIndex = 0;
+                panel.add(resultPanel(coveredRules));
+                panel.repaint();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(this, exception.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         });
     }
 
