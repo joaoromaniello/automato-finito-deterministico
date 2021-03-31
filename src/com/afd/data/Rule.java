@@ -22,12 +22,4 @@ public class Rule {
     public String getTargetState() {
         return targetState;
     }
-
-    public String toString(int passo) {
-        return  "------- Passo " + passo + " -------\n" +
-                "Estado atual: " + sourceState + "\n" +
-                "Símbolo atual: " + symbol + "\n" +
-                "Regra: " + "{ " + sourceState + ", " + symbol + ", " + targetState + " }\n" +
-                "Próximo estado: " + targetState + "\n\n";
-    }
 }
