@@ -19,6 +19,7 @@ public class StepView extends JFrame{
     private final JButton nextButton = new JButton(">>>");
     private final JButton finishButton = new JButton("FINALIZAR");
     private final JButton sendButton = new JButton("ENVIAR");
+    private final JButton changeAutomatonButton = new JButton("TROCAR AUTÔMATO");
 
     private final Automaton automaton;
     private final RuleService ruleService;
@@ -36,7 +37,7 @@ public class StepView extends JFrame{
 
         setVisible(true);
         setResizable(false);
-        setSize(400, 300);
+        setSize(400, 335);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
@@ -48,13 +49,16 @@ public class StepView extends JFrame{
         textField.setBounds(78, 15, 205, 20);
         add(textField);
 
-        sendButton.setBounds(290, 15, 90, 20);
-        add(sendButton);
-
         panel.setBounds(20, 50, 360, 150);
         panel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
         panel.setBackground(new Color(255, 255, 255));
         add(panel);
+
+        sendButton.setBounds(290, 15 , 90, 20);
+        add(sendButton);
+
+        changeAutomatonButton.setBounds(20, 265, 360, 20);
+        add(changeAutomatonButton);
 
         beforeButton.setBorder(BorderFactory.createEtchedBorder());
         beforeButton.setBounds(20, 220, 60, 20);
@@ -74,6 +78,7 @@ public class StepView extends JFrame{
         this.beforeButtonAction();
         this.nextButtonAction();
         this.finishButtonAction();
+        this.changeAutomatonButtonAction();
     }
 
     private void enableOutputButtons(boolean flag) {
@@ -145,6 +150,13 @@ public class StepView extends JFrame{
             }
             clean();
             enableOutputButtons(false);
+        });
+    }
+
+    private void changeAutomatonButtonAction() {
+        changeAutomatonButton.addActionListener(e -> {
+            dispose();
+            new InitialView(new RuleRepository());
         });
     }
 

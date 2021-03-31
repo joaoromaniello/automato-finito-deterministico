@@ -65,7 +65,7 @@ public class InitialView extends JFrame implements ActionListener {
                 Automaton automaton = inputFileService.translateAutomaton();
                 automatonService.validadeAutomaton(automaton);
                 new StepView(ruleRepository, automaton);
-                setVisible(false);
+                dispose();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Favor inserir um arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
