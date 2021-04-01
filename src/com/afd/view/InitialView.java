@@ -67,7 +67,7 @@ public class InitialView extends JFrame implements ActionListener {
                 new StepView(ruleRepository, automaton);
                 dispose();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Favor inserir um arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else if (event.getSource() == aboutButton) {
             JOptionPane.showMessageDialog(this, "\n\nO programa tem a finalidade de simular o " +
