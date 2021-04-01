@@ -40,10 +40,16 @@ public class AutomatonService {
         String alphabet = automaton.getAlphabet();
         List<Rule> rules = automaton.getRules();
 
+        validateStates(states);
         validateInitialStates(states, initialState);
         validateFinalStates(states, finalStates);
         validateRules(rules, states, alphabet);
         validateDeterminism(states, alphabet, rules);
+    }
+
+    private void validateStates(List<String> states) throws Exception {
+        if (states.isEmpty())
+            throw new Exception("Conjunto de estados deve possuir pelo menos um estado");
     }
 
     private void validateInitialStates(List<String> states, String initialState) throws Exception {

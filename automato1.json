@@ -1,5 +1,5 @@
 {
-  "estados": ["q0", "q1", "q2"],
+  "estados": [],
   "alfabeto": "01",
   "regras": [
     {
