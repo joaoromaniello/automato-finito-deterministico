@@ -60,6 +60,7 @@ public class InitialView extends JFrame implements ActionListener {
             try {
                 AFNDAutomaton afndAutomaton = inputFileService.parseAutomaton();
                 afndService.validateAutomaton(afndAutomaton);
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
