@@ -1,6 +1,7 @@
 package com.afnd.view;
 
-import com.afnd.data.Automaton;
+import com.afnd.data.AFNDAutomaton;
+import com.afnd.service.AFNDService;
 import com.afnd.service.InputFileService;
 
 import javax.swing.*;
@@ -16,6 +17,8 @@ public class InitialView extends JFrame implements ActionListener {
     JLabel titleLabel = new JLabel("Autômato Finito Não Determinístico");
     JButton openFileButton = new JButton("Arquivo...");
     JButton aboutButton = new JButton("Sobre...");
+
+    AFNDService afndService = new AFNDService();
 
     public InitialView(){
         setupFrame();
@@ -55,8 +58,8 @@ public class InitialView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == openFileButton) {
             try {
-                Automaton automaton = inputFileService.translateAutomaton();
-                System.out.println(automaton);
+                AFNDAutomaton afndAutomaton = inputFileService.parseAutomaton();
+                afndService.validateAutomaton(afndAutomaton);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }

@@ -1,12 +1,11 @@
 package com.afnd.service;
 
-import com.afnd.data.Automaton;
-import com.afnd.data.Rule;
+import com.afnd.data.AFNDAutomaton;
+import com.afnd.data.AFNDRule;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import sun.rmi.transport.ObjectTable;
 
 import javax.swing.*;
 import java.io.File;
@@ -20,7 +19,7 @@ public class InputFileService {
     JSONArray jsonArray;
     JSONObject jsonField;
 
-    public Automaton translateAutomaton() throws Exception {
+    public AFNDAutomaton parseAutomaton() throws Exception {
         File workingDirectory = new File(System.getProperty("user.dir"));
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(workingDirectory);
@@ -35,7 +34,7 @@ public class InputFileService {
         return null;
     }
 
-    private Automaton parseFile(String absolutePath) throws IOException, ParseException {
+    private AFNDAutomaton parseFile(String absolutePath) throws IOException, ParseException {
         jsonField = (JSONObject) new JSONParser().parse(new FileReader(absolutePath));
 
         jsonArray = (JSONArray) jsonField.get("estados");
@@ -43,14 +42,14 @@ public class InputFileService {
 
         String alphabet = parseAlphabet();
 
-        List<Rule> rules = parseRules();
+        List<AFNDRule> AFNDRules = parseRules();
 
         String initialState = parseInitialState();
 
         jsonArray = (JSONArray) jsonField.get("estadosFinais");
         List<String> finalStates = parseArrayField(jsonArray);
 
-        return new Automaton(states, alphabet, rules, initialState, finalStates);
+        return new AFNDAutomaton(states, alphabet, AFNDRules, initialState, finalStates);
     }
 
     private List<String> parseArrayField(JSONArray jsonArray) {
@@ -65,8 +64,8 @@ public class InputFileService {
         return (String) jsonField.get("alfabeto");
     }
 
-    private List<Rule> parseRules() {
-        List<Rule> rules = new ArrayList<>();
+    private List<AFNDRule> parseRules() {
+        List<AFNDRule> AFNDRules = new ArrayList<>();
         jsonArray = (JSONArray) jsonField.get("regras");
         for (Object rule : jsonArray) {
             JSONObject jsonRule = (JSONObject) rule;
@@ -78,9 +77,9 @@ public class InputFileService {
             JSONArray targets = (JSONArray) jsonRule.get("estadosDestino");
             List<String> targetStates = parseArrayField(targets);
 
-            rules.add(new Rule(sourceState, symbol.charAt(0), targetStates));
+            AFNDRules.add(new AFNDRule(sourceState, symbol.charAt(0), targetStates));
         }
-        return rules;
+        return AFNDRules;
     }
 
     private String parseInitialState() {

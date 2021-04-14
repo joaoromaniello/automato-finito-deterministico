@@ -2,23 +2,23 @@ package com.afnd.data;
 
 import java.util.List;
 
-public class Automaton {
+public class AFNDAutomaton {
     private final List<String> states;
     private final String alphabet;
-    private final List<Rule> rules;
+    private final List<AFNDRule> AFNDRules;
     private final String initialState;
     private final List<String> finalStates;
 
-    public Automaton(List<String> states, String alphabet, List<Rule> rules, String initialState, List<String> finalStates) {
+    public AFNDAutomaton(List<String> states, String alphabet, List<AFNDRule> AFNDRules, String initialState, List<String> finalStates) {
         this.states = states;
         this.alphabet = alphabet;
-        this.rules = rules;
+        this.AFNDRules = AFNDRules;
         this.initialState = initialState;
         this.finalStates = finalStates;
     }
 
-    public List<Rule> getRules() {
-        return rules;
+    public List<AFNDRule> getRules() {
+        return AFNDRules;
     }
 
     public String getInitialState() {
